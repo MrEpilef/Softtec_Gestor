@@ -21,7 +21,7 @@ Sendo a camada cliente de uma solução completa, este aplicativo foi estruturad
 
 ## Tecnologias Utilizadas
 
-* **Framework:** Flutter (Versão X.X.X)
+* **Framework:** Flutter (Versão 3.41.2)
 * **Linguagem:** Dart
 * **Principais Pacotes:**
   * `http` / `dio`: Para requisições HTTP e consumo da API.
