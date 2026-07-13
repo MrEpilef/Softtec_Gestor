@@ -12,28 +12,25 @@ O **GestorSofttec** está sendo desenvolvido para resolver problemas reais de ne
 
 ## Arquitetura e Integração (Visão Fullstack)
 
-Sendo a camada cliente de uma solução completa, este aplicativo foi estruturado com foco em escalabilidade e baixo acoplamento:
+Sendo a camada cliente de uma solução completa, este aplicativo está sendo estruturado com foco em escalabilidade e baixo acoplamento:
 
-* **Integração RESTful:** Consumo de APIs estruturadas, preparado para lidar com sistemas backend robustos (ex: microsserviços em Java/Spring Boot ou Python).
-* **Modelagem de Dados:** Serialização eficiente de objetos e tratamento rigoroso de retornos JSON, garantindo integridade das informações entre o banco de dados relacional e o app.
-* **Gerenciamento de Estado:** Utilização de [INSERIR AQUI: Bloc / Riverpod / Provider] para separar a regra de negócio da camada de apresentação (UI).
-* **Segurança:** Práticas sólidas de autenticação (ex: JWT) e armazenamento seguro de dados sensíveis no dispositivo.
+* **Integração RESTful:** (em progresso)
+* **Modelagem de Dados:** (em progresso)
+* **Gerenciamento de Estado:** (em progresso)
+* **Segurança:** (em progresso)
 
 ## Tecnologias Utilizadas
 
 * **Framework:** Flutter (Versão 3.41.2)
 * **Linguagem:** Dart
-* **Principais Pacotes:**
-  * `http` / `dio`: Para requisições HTTP e consumo da API.
-  * `shared_preferences` / `flutter_secure_storage`: Para persistência local de dados.
-  * [Adicione outros pacotes relevantes da sua arquitetura]
+
 
 ## Como Executar o Projeto
 
 **Pré-requisitos:**
 * Flutter SDK instalado.
 * Emulador Android/iOS ou dispositivo físico configurado.
-* (Opcional) Ambiente backend rodando localmente para consumo da API.
+
 
 ```bash
 # Clone este repositório
