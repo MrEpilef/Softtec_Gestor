@@ -1,0 +1,48 @@
+# =========================================================================
+# FLUTTER E DART (Arquivos gerados automaticamente)
+# =========================================================================
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+lib/generated_plugin_registrant.dart
+
+# =========================================================================
+# IOS E ANDROID (Artefatos de compilação)
+# =========================================================================
+**/ios/Flutter/.last_build_id
+.gradle/
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+# =========================================================================
+# ARQUIVOS DE SIMBOLIZAÇÃO E OFUSCAÇÃO
+# =========================================================================
+app.*.symbols
+app.*.map.json
+
+# =========================================================================
+# CONFIGURAÇÕES DE IDEs
+# =========================================================================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# =========================================================================
+# ARQUIVOS DO SISTEMA OPERACIONAL
+# =========================================================================
+.DS_Store
+Thumbs.db
+*.swp
+
+# =========================================================================
+# VARIÁVEIS DE AMBIENTE E DADOS SENSÍVEIS
+# =========================================================================
+.env
+.env.*
+*.keys
+*secret*
