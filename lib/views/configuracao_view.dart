@@ -6,11 +6,24 @@ class ConfiguracaoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFF001621),
       alignment: Alignment.center,
-      child: const Text(
-        'Tela de Configurações',
-        style: TextStyle(color: Colors.white, fontSize: 30),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.bottomRight,
+          colors:[
+            Color.fromARGB(255, 241, 64, 4),
+            Color.fromARGB(255, 201, 53, 15),
+          ]
+        ),
+      ),
+    child: Text(
+      "Esta é a aba Configurações",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
       ),
     );
   }

@@ -6,12 +6,34 @@ class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFF001621), 
       alignment: Alignment.center,
-      child: const Text(
-        'Tela do Dashboard',
-        style: TextStyle(color: Colors.white, fontSize: 30),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.bottomRight,
+          colors:[
+            Color.fromARGB(255, 241, 64, 4),
+            Color.fromARGB(255, 201, 53, 15),
+          ]
+        ),
       ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.report, color: Colors.white, size: 40,),
+          SizedBox(height: 5),
+          Text(
+            "Esta é a aba Dashboard",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      )
     );
   }
+
 }

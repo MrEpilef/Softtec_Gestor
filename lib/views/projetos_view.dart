@@ -59,7 +59,7 @@ class _ProjetosViewState extends State<ProjetosView> {
             child: FloatingActionButton.extended(
               onPressed: () {
                 // Lógica para novo projeto
-                print("Adicionar projeto clicado");
+                print("Adicionar projeto: clicado");
               },
               icon: const Icon(Icons.add),
               label: const Text('Novo Projeto'),
