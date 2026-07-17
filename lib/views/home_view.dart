@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_title_bar.dart';
 import 'dashboard_view.dart';
+import 'cadastro_view.dart';
 import 'projetos_view.dart';
 import 'relatorios_view.dart';
 import 'configuracao_view.dart';
@@ -16,10 +17,11 @@ class _HomeViewState extends State<HomeView> {
   int _indiceSelecionado = 0;
 
   final List<Widget> _telas = [
-    const DashboardView(),
+    DashboardView(),
+    CadastroView(),
     ProjetosView(),
-    const RelatoriosView(),
-    const ConfiguracaoView(),
+    RelatoriosView(),
+    ConfiguracaoView(),
   ];
 
   @override
@@ -47,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
                   unselectedLabelTextStyle: const TextStyle(color: Colors.white60),
                   destinations: const [
                     NavigationRailDestination(icon: Icon(Icons.dashboard), label: Text('Dashboard')),
+                    NavigationRailDestination(icon: Icon(Icons.person_add), label: Text('Cadastro')),
                     NavigationRailDestination(icon: Icon(Icons.folder), label: Text('Projetos')),
                     NavigationRailDestination(icon: Icon(Icons.insert_chart), label: Text('Relatórios')),
                     NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Configuração')),

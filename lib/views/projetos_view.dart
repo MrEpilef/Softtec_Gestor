@@ -13,8 +13,6 @@ class ProjetosView extends StatefulWidget {
 class _ProjetosViewState extends State<ProjetosView> {
   TelaProjeto _telaAtual = TelaProjeto.lista;
 
-  List<String> projetos = [];
-
   Widget _construirTelaAtual() {
     switch (_telaAtual) {
       case TelaProjeto.lista:

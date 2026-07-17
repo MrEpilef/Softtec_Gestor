@@ -6,7 +6,7 @@ class DetalheProjetoView extends StatelessWidget {
   const DetalheProjetoView({Key? key, required this.onVoltar})
     : super(key: key);
 
-  @override
+   @override
     Widget build(BuildContext context) {
       return Padding(
         padding: const EdgeInsets.all(32.0),
