@@ -35,9 +35,12 @@ class _ProjetosViewState extends State<ProjetosView> {
         );
 
       case TelaProjeto.visualizarProjeto:
-        //Espaço reservado para futuro desenvolvimento da tela de visualização de projetos criados.
-        return const Center(
-          child: Text('Tela de visualização para futura atualização'),
+        return DetalheProjetoView(
+          onVoltar: () {
+            setState(() {
+              _telaAtual = TelaProjeto.lista;
+            });
+          },
         );
     }
   }
@@ -117,7 +120,6 @@ class _ProjetosViewState extends State<ProjetosView> {
     );
   }
 
-
   Widget _construirCard(Map<String, dynamic> projeto) {
     return Card(
       elevation: 4,
@@ -129,7 +131,7 @@ class _ProjetosViewState extends State<ProjetosView> {
         onTap: () {
           // Quando o usuário clicar no Card, mudar para a tela de Visualização!
           setState(() {
-            _telaAtual = TelaProjeto.visualizarProjeto; 
+            _telaAtual = TelaProjeto.visualizarProjeto;
           });
         },
         child: Padding(
@@ -145,9 +147,9 @@ class _ProjetosViewState extends State<ProjetosView> {
                     child: Text(
                       projeto['nome'],
                       style: const TextStyle(
-                        fontSize: 18, 
-                        fontWeight: FontWeight.bold, 
-                        color: Color(0xFF001621)
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF001621),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -172,14 +174,17 @@ class _ProjetosViewState extends State<ProjetosView> {
                   Text(
                     projeto['status'],
                     style: TextStyle(
-                      fontSize: 12, 
-                      fontWeight: FontWeight.bold, 
-                      color: projeto['cor']
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: projeto['cor'],
                     ),
                   ),
                   Text(
                     '${(projeto['progresso'] * 100).toInt()}%',
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
