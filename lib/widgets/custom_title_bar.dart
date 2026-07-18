@@ -8,7 +8,7 @@ class CustomTitleBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return DragToMoveArea(
       child: Container(
-        height: 30,
+        height: 45,
         color: const Color.fromARGB(255, 0, 27, 41),
         child: Row(
           children: [

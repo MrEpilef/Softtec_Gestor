@@ -6,6 +6,7 @@ import 'projetos_view.dart';
 import 'relatorios_view.dart';
 import 'configuracao_view.dart';
 
+
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 

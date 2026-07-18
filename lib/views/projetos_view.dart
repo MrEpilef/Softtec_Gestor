@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:gestorsofttec/controllers/projeto_controller.dart';
 import 'package:gestorsofttec/views/detalhe_projeto_view.dart';
+import 'package:provider/provider.dart';
 
-enum TelaProjeto { lista, visualizarProjeto, novoProjeto, editarProjeto }
-
-class ProjetosView extends StatefulWidget {
+class ProjetosView extends StatelessWidget {
   const ProjetosView({Key? key}) : super(key: key);
 
-  @override
-  _ProjetosViewState createState() => _ProjetosViewState();
-}
+  Widget _construirTelaAtual(BuildContext context) {
+    final telaAtual = context.watch<ProjetoController>().telaAtual;
 
-class _ProjetosViewState extends State<ProjetosView> {
-  TelaProjeto _telaAtual = TelaProjeto.lista;
-
-  Widget _construirTelaAtual() {
-    switch (_telaAtual) {
+    switch (telaAtual) {
       case TelaProjeto.lista:
-        return _construirLista();
+        return _construirLista(context);
 
       case TelaProjeto.novoProjeto:
         return DetalheProjetoView(
           onVoltar: () {
-            setState(() {
-              _telaAtual = TelaProjeto.lista;
-            });
+            context.read<ProjetoController>().mudarTela(TelaProjeto.lista);
           },
         );
       case TelaProjeto.editarProjeto:
@@ -35,15 +28,13 @@ class _ProjetosViewState extends State<ProjetosView> {
       case TelaProjeto.visualizarProjeto:
         return DetalheProjetoView(
           onVoltar: () {
-            setState(() {
-              _telaAtual = TelaProjeto.lista;
-            });
+            context.read<ProjetoController>().mudarTela(TelaProjeto.lista);
           },
         );
     }
   }
 
-  Widget _construirLista() {
+  Widget _construirLista(BuildContext context) {
     final List<Map<String, dynamic>> projetosSimulados = [
       {
         "nome": "Implantação de PDV",
@@ -93,9 +84,9 @@ class _ProjetosViewState extends State<ProjetosView> {
                     mainAxisSpacing: 16,
                   ),
                   itemCount: projetosSimulados.length,
-                  itemBuilder: (context, Index) {
-                    final projeto = projetosSimulados[Index];
-                    return _construirCard(projeto);
+                  itemBuilder: (context, index) {
+                    final projeto = projetosSimulados[index];
+                    return _construirCard(context, projeto);
                   },
                 ),
         ),
@@ -106,7 +97,9 @@ class _ProjetosViewState extends State<ProjetosView> {
           child: FloatingActionButton.extended(
             onPressed: () {
               // Lógica para novo projeto
-              print("Adicionar projeto: clicado");
+              context.read<ProjetoController>().mudarTela(
+                TelaProjeto.novoProjeto,
+              );
             },
             icon: const Icon(Icons.add),
             label: const Text('Novo Projeto'),
@@ -118,7 +111,7 @@ class _ProjetosViewState extends State<ProjetosView> {
     );
   }
 
-  Widget _construirCard(Map<String, dynamic> projeto) {
+  Widget _construirCard(BuildContext context, Map<String, dynamic> projeto) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -128,9 +121,7 @@ class _ProjetosViewState extends State<ProjetosView> {
         borderRadius: BorderRadius.circular(12),
         onTap: () {
           // Quando o usuário clicar no Card, mudar para a tela de Visualização!
-          setState(() {
-            _telaAtual = TelaProjeto.visualizarProjeto;
-          });
+          context.read<ProjetoController>().mudarTela(TelaProjeto.visualizarProjeto);
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -214,7 +205,7 @@ class _ProjetosViewState extends State<ProjetosView> {
           ],
         ),
       ),
-      child: _construirTelaAtual(),
+      child: _construirTelaAtual(context),
     );
   }
 }
