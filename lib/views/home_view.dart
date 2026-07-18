@@ -6,7 +6,6 @@ import 'projetos_view.dart';
 import 'relatorios_view.dart';
 import 'configuracao_view.dart';
 
-
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -16,6 +15,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _indiceSelecionado = 0;
+  bool _menuAberto = true;
 
   final List<Widget> _telas = [
     DashboardView(),
@@ -38,30 +38,73 @@ class _HomeViewState extends State<HomeView> {
                 NavigationRail(
                   backgroundColor: const Color(0xFF001621),
                   selectedIndex: _indiceSelecionado,
-                  extended: true,
+                  extended: _menuAberto,
+                  minExtendedWidth: 200,
                   onDestinationSelected: (int index) {
                     setState(() {
                       _indiceSelecionado = index;
                     });
                   },
-                  selectedIconTheme: const IconThemeData(color: Color(0xFFFF4103)),
-                  unselectedIconTheme: const IconThemeData(color: Colors.white60),
-                  selectedLabelTextStyle: const TextStyle(color: Color(0xFFFF4103), fontWeight: FontWeight.bold),
-                  unselectedLabelTextStyle: const TextStyle(color: Colors.white60),
+                  selectedIconTheme: const IconThemeData(color: Color(0xFFFF4103),),
+                  unselectedIconTheme: const IconThemeData(color: Colors.white60,),
+                  selectedLabelTextStyle: const TextStyle(color: Color(0xFFFF4103),fontWeight: FontWeight.bold,),
+                  unselectedLabelTextStyle: const TextStyle(color: Colors.white60,),
+
+                  leading: InkWell(
+                    borderRadius: BorderRadius.circular(8),
+                    onTap: () {
+                      // Ao clicar no logo, inverte o estado do menu!
+                      setState(() {
+                        _menuAberto = !_menuAberto;
+                      });
+                    },
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 8.0),
+                      // Se estiver aberto, mostra Ícone + Texto. Se fechado, só o Ícone.
+                      child: _menuAberto
+                    ? const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.layers, color: Color(0xFFFF4103), size: 32), // Troque pela sua logo depois
+                          SizedBox(width: 12),
+                          Text(
+                            'SOFTTEC',
+                            style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )
+                    : const Icon(Icons.layers, color: Color(0xFFFF4103), size: 32),
+                    ),
+                  ),
+
+
+
+
                   destinations: const [
-                    NavigationRailDestination(icon: Icon(Icons.dashboard), label: Text('Dashboard')),
-                    NavigationRailDestination(icon: Icon(Icons.person_add), label: Text('Cadastro')),
-                    NavigationRailDestination(icon: Icon(Icons.folder), label: Text('Projetos')),
-                    NavigationRailDestination(icon: Icon(Icons.insert_chart), label: Text('Relatórios')),
-                    NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Configuração')),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.dashboard),
+                      label: Text('Dashboard'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.person_add),
+                      label: Text('Cadastro'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.folder),
+                      label: Text('Projetos'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.insert_chart),
+                      label: Text('Relatórios'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.settings),
+                      label: Text('Configuração'),
+                    ),
                   ],
                 ),
 
-                
-                Expanded(
-                  
-                  child: _telas[_indiceSelecionado], 
-                ),
+                Expanded(child: _telas[_indiceSelecionado]),
               ],
             ),
           ),
