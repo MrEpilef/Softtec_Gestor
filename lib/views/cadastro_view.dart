@@ -50,6 +50,7 @@ class _FormularioClientes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return SingleChildScrollView(
       padding: const EdgeInsets.all(32.0),
       child: Column(
@@ -70,7 +71,7 @@ class _FormularioClientes extends StatelessWidget {
                 flex: 2,
                 child: _construirCampo(
                   label: 'Razão Social',
-                  hint: 'Ex: Mega São Luís Ltda',
+                  hint: 'Ex: Supermercado ...',
                 ),
               ),
               const SizedBox(width: 16),
@@ -83,7 +84,58 @@ class _FormularioClientes extends StatelessWidget {
               ),
             ],
           ),
-          // ... resto dos campos do cliente (pode manter os mesmos que já tínhamos) ...
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: _construirCampo(
+                  label: 'Endereço',
+                  hint: 'Ex: Avenida Oscar ...',
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                flex: 1,
+                child: _construirCampo(
+                  label: 'CEP',
+                  hint: '00000-000',
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                flex: 1,
+                child: _construirCampo(
+                  label: 'Cidade - UF',
+                  hint: 'Goiânia - GO',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: _construirCampo(
+                  label: 'Contato',
+                  hint: 'Nome',
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                flex: 1,
+                child: _construirCampo(
+                  label: 'Telefone',
+                  hint: '(00) 9 0000-0000',
+                ),
+              ),
+              const SizedBox(width: 12),
+            ],
+          ),
+          
+
+          
         ],
       ),
     );

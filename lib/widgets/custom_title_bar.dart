@@ -14,7 +14,7 @@ class CustomTitleBar extends StatelessWidget {
           children: [
             const SizedBox(width: 15),
             const Text(
-              'Softtec - Gestor',
+              'Gestor Softtec',
               style: TextStyle(color: Colors.white70, fontSize: 14),
             ),
             const Spacer(),
