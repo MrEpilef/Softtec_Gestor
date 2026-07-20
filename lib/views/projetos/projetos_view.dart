@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestorsofttec/controllers/projeto_controller.dart';
-import 'package:gestorsofttec/views/detalhe_projeto_view.dart';
+import 'package:gestorsofttec/views/projetos/detalhe_projeto_view.dart';
 import 'package:provider/provider.dart';
 
 class ProjetosView extends StatelessWidget {

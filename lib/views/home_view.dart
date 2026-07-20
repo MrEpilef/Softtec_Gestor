@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_title_bar.dart';
 import 'dashboard_view.dart';
-import 'cadastro_view.dart';
-import 'projetos_view.dart';
+import 'cadastro/cadastro_view.dart';
+import 'projetos/projetos_view.dart';
 import 'relatorios_view.dart';
 import 'configuracao_view.dart';
 
 class HomeView extends StatefulWidget {
 
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
