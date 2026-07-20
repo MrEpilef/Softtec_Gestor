@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestorsofttec/controllers/projeto_controller.dart';
 import 'package:gestorsofttec/views/projetos/detalhe_projeto_view.dart';
+import 'package:gestorsofttec/widgets/botao_padrao.dart';
 import 'package:provider/provider.dart';
 
 class ProjetosView extends StatelessWidget {
@@ -92,20 +93,15 @@ class ProjetosView extends StatelessWidget {
         ),
 
         Positioned(
-          bottom: 24.0,
-          left: 24.0,
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              // Lógica para novo projeto
-              context.read<ProjetoController>().mudarTela(
-                TelaProjeto.novoProjeto,
-              );
+          bottom: 32.0,
+          left: 32.0,
+          child: BotaoPadrao(
+            label: 'SALVAR PROJETO',
+           onPressed: () { 
+            context.read<ProjetoController>().mudarTela(
+            TelaProjeto.novoProjeto);
             },
-            icon: const Icon(Icons.add),
-            label: const Text('Novo Projeto'),
-            backgroundColor: const Color(0xFF001621),
-            foregroundColor: Colors.white,
-          ),
+           ),
         ),
       ],
     );
@@ -114,13 +110,12 @@ class ProjetosView extends StatelessWidget {
   Widget _construirCard(BuildContext context, Map<String, dynamic> projeto) {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: Colors.white,
-      // InkWell: efeito de "onda" ao clicar e permite capturar o clique
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12)),
+      color: Color(0xFF001B29),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          // Quando o usuário clicar no Card, mudar para a tela de Visualização!
           context.read<ProjetoController>().mudarTela(TelaProjeto.visualizarProjeto);
         },
         child: Padding(
@@ -138,7 +133,7 @@ class ProjetosView extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF001621),
+                        color: Colors.white,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -152,7 +147,7 @@ class ProjetosView extends StatelessWidget {
               // NOME DO CLIENTE
               Text(
                 'Cliente: ${projeto['cliente']}',
-                style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                style: TextStyle(fontSize: 14, color: Colors.grey[400]),
               ),
               const Spacer(),
 
@@ -195,16 +190,7 @@ class ProjetosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [
-            Color.fromARGB(255, 241, 64, 4),
-            Color.fromARGB(255, 201, 53, 15),
-          ],
-        ),
-      ),
+      color: const Color(0xFF001621),
       child: _construirTelaAtual(context),
     );
   }

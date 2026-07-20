@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gestorsofttec/views/cadastro/formulario_analistas.dart';
-import 'package:gestorsofttec/views/cadastro/formulario_clientes.dart';
+import 'package:gestorsofttec/views/cadastro/formulario_analistas_view.dart';
+import 'package:gestorsofttec/views/cadastro/formulario_clientes_view.dart';
+import 'package:gestorsofttec/views/cadastro/formulario_servicos_view.dart';
 
 class CadastroView extends StatelessWidget {
   const CadastroView({super.key});
@@ -14,6 +15,7 @@ class CadastroView extends StatelessWidget {
         // CONTAINER DE BAIXO
         // ==========================================
         color: const Color(0xFF001621),
+        //color: const Color(0xFFFF4103),
         child: Column(
           children: [
             // ==========================================
@@ -37,9 +39,9 @@ class CadastroView extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  const FormularioClientes(),
-                  const FormularioAnalistas(),
-                  //_FormularioServicos(),
+                  FormularioClientes(),
+                  FormularioAnalistas(),
+                  FormularioServicos(),
                 ],
               ),
             ),
