@@ -10,16 +10,18 @@ class CadastroView extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Container(
+        //==========================================
+        // CONTAINER DE BAIXO
+        // ==========================================
         color: const Color(0xFF001621),
-
         child: Column(
           children: [
             // ==========================================
             // BARRA DE ABAS (TOPO)
             // ==========================================
             Container(
-              color: const Color.fromARGB(255, 0, 27, 41),
-
+              //color: const Color.fromARGB(255, 0, 27, 41),
+              color: const Color(0xFF001621),
               child: const TabBar(
                 indicatorColor: Color(0xFFFF4103),
                 indicatorWeight: 3.0,
@@ -188,7 +190,6 @@ class _FormularioAnalistas extends StatelessWidget {
                 flex: 1,
                 child: const CampoTextoPadrao(label: 'CEP', hint: '00000-000'),
               ),
-              const SizedBox(width: 16),
             ],
           ),
         ],

@@ -51,8 +51,8 @@ class _HomeViewState extends State<HomeView> {
                   selectedLabelTextStyle: const TextStyle(color: Color(0xFFFF4103),fontWeight: FontWeight.bold,),
                   unselectedLabelTextStyle: const TextStyle(color: Colors.white60,),
 
-                  leading: InkWell(
-                    borderRadius: BorderRadius.circular(8),
+                  leading: GestureDetector(
+                    
                     onTap: () {
                       // Ao clicar no logo, inverte o estado do menu!
                       setState(() {
@@ -63,18 +63,28 @@ class _HomeViewState extends State<HomeView> {
                       padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 8.0),
                       // Se estiver aberto, mostra Ícone + Texto. Se fechado, só o Ícone.
                       child: _menuAberto
-                    ? const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.layers, color: Color(0xFFFF4103), size: 32), // Troque pela sua logo depois
-                          SizedBox(width: 12),
-                          Text(
-                            'SOFTTEC',
-                            style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )
-                    : const Icon(Icons.layers, color: Color(0xFFFF4103), size: 32),
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/logo.png',
+                              width: 32,
+                              height: 32,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              'SOFTTEC',
+                              style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                    : Image.asset(
+                              'assets/logo.png',
+                              width: 32,
+                              height: 32,
+                              fit: BoxFit.contain,
+                            ),
                     ),
                   ),
 
