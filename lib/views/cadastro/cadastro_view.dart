@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestorsofttec/views/cadastro/formulario_analistas_view.dart';
 import 'package:gestorsofttec/views/cadastro/formulario_clientes_view.dart';
-import 'package:gestorsofttec/views/cadastro/formulario_servicos_view.dart';
+//import 'package:gestorsofttec/views/cadastro/formulario_servicos_view.dart';
 
 class CadastroView extends StatelessWidget {
   const CadastroView({super.key});
@@ -9,7 +9,7 @@ class CadastroView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Container(
         //==========================================
         // CONTAINER DE BAIXO
@@ -32,7 +32,7 @@ class CadastroView extends StatelessWidget {
                 tabs: [
                   Tab(icon: Icon(Icons.store), text: 'Clientes'),
                   Tab(icon: Icon(Icons.badge), text: 'Analistas'),
-                  Tab(icon: Icon(Icons.build_circle), text: 'Tipo de serviços'),
+                  //Tab(icon: Icon(Icons.build_circle), text: 'Tipo de serviços'),
                 ],
               ),
             ),
@@ -41,7 +41,7 @@ class CadastroView extends StatelessWidget {
                 children: [
                   FormularioClientes(),
                   FormularioAnalistas(),
-                  FormularioServicos(),
+                  //FormularioServicos(),
                 ],
               ),
             ),

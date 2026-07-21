@@ -37,7 +37,8 @@ class _HomeViewState extends State<HomeView> {
             child: Row(
               children: [
                 NavigationRail(
-                  backgroundColor: const Color(0xFF001621),
+                  //backgroundColor: const Color(0xFF001621),
+                  backgroundColor: const Color(0xFF001B29),
                   selectedIndex: _indiceSelecionado,
                   extended: _menuAberto,
                   minExtendedWidth: 200,

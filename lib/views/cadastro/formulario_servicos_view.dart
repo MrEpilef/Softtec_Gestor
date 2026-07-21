@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:gestorsofttec/widgets/botao_padrao.dart';
 import 'package:gestorsofttec/widgets/campo_texto_padrao.dart';
+import 'package:gestorsofttec/widgets/dropdown_padrao.dart';
 
 class FormularioServicos extends StatelessWidget {
   const FormularioServicos({super.key});
@@ -15,7 +16,7 @@ class FormularioServicos extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Dados do Cliente',
+                'Dados do Serviço',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -28,64 +29,22 @@ class FormularioServicos extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: const CampoTextoPadrao(
-                      label: 'Razão Social',
-                      hint: 'Ex: Supermercado ...',
+                      label: 'Nome do serviço',
+                      hint: 'Nome do serviço',
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     flex: 1,
-                    child: const CampoTextoPadrao(
-                      label: 'CNPJ',
-                      hint: '00.000.000/0000-00',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: const CampoTextoPadrao(
-                      label: 'Endereço',
-                      hint: 'Ex: Avenida Oscar ...',
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    flex: 1,
-                    child: const CampoTextoPadrao(
-                      label: 'CEP',
-                      hint: '00000-000',
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    flex: 1,
-                    child: const CampoTextoPadrao(
-                      label: 'Cidade - UF',
-                      hint: 'Goiânia - GO',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: const CampoTextoPadrao(
-                      label: 'Contato',
-                      hint: 'Nome',
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    flex: 1,
-                    child: const CampoTextoPadrao(
-                      label: 'Telefone',
-                      hint: '(00) 9 0000-0000',
+                    child: DropdownPadrao(
+                      label: 'Local',
+                      itens: [
+                        'Presencial',
+                        'Remoto',
+                      ],
+                      onChanged: (valorSelecionado) {
+                        print('O valor selecionado foi $valorSelecionado');
+                      },
                     ),
                   ),
                 ],
@@ -99,13 +58,13 @@ class FormularioServicos extends StatelessWidget {
           child: BotaoPadrao(
             label: 'SALVAR SERVIÇO',
             onPressed: () {
-              print('Cliente salvo!');
+              print('Serviço salvo com sucesso!');
             },
             icone: Icons.save,
           ),
         ),
-        
       ],
     );
   }
 }
+ */

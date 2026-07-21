@@ -46,7 +46,7 @@ class FormularioClientes extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 4,
                     child: const CampoTextoPadrao(
                       label: 'Endereço',
                       hint: 'Ex: Avenida Oscar ...',
@@ -54,18 +54,18 @@ class FormularioClientes extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: const CampoTextoPadrao(
-                      label: 'CEP',
-                      hint: '00000-000',
+                      label: 'Cidade',
+                      hint: 'Goiânia',
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     flex: 1,
                     child: const CampoTextoPadrao(
-                      label: 'Cidade - UF',
-                      hint: 'Goiânia - GO',
+                      label: 'UF',
+                      hint: 'GO',
                     ),
                   ),
                 ],
@@ -90,6 +90,17 @@ class FormularioClientes extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                        flex: 1,
+                        child: CampoTextoPadrao(
+                          label: 'E-mail',
+                          hint: 'administração@Softtecsistemas.com.br'),
+                      ),
+                ],
+              )
             ],
           ),
         ),

@@ -9,15 +9,29 @@ class DetalheProjetoView extends StatelessWidget {
    @override
     Widget build(BuildContext context) {
       return Padding(
-        padding: const EdgeInsets.all(32.0),
-
-
-        child: Material(
-          elevation: 8, // Sombra para o efeito de destaque
+      padding: const EdgeInsets.all(32.0),
+      child: Container(
+        clipBehavior: Clip.antiAlias, 
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: const Color(0xFF001621), // Cor de fundo do cartão
-          clipBehavior: Clip.antiAlias, // Garante que as bordas fiquem perfeitamente redondas
-
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFFF14004), 
+              Color(0xFFC9350F), 
+            ],
+          ),
+          
+          
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4), 
+              blurRadius: 10, 
+              offset: const Offset(0, 4), 
+            ),
+          ],
+        ),
           child: Stack(
             children: [
               Positioned(

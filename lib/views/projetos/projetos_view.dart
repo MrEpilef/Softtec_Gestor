@@ -1,197 +1,230 @@
 import 'package:flutter/material.dart';
 import 'package:gestorsofttec/controllers/projeto_controller.dart';
-import 'package:gestorsofttec/views/projetos/detalhe_projeto_view.dart';
-import 'package:gestorsofttec/widgets/botao_padrao.dart';
+import 'dart:convert';
 import 'package:provider/provider.dart';
+import 'package:gestorsofttec/models/projeto_model.dart';
+import 'detalhe_projeto_view.dart';
 
 class ProjetosView extends StatelessWidget {
-  const ProjetosView({Key? key}) : super(key: key);
+  const ProjetosView({super.key});
+  final String jsonDeExemplo = '''
+  [
+    {
+      "titulo": "Implantação de PDV",
+      "cliente": "Mega São Luís",
+      "status": "Em Andamento",
+      "progresso": 65
+    },
+    {
+      "titulo": "Auditoria e Migração Firebird",
+      "cliente": "Supermercado Central",
+      "status": "Pendente",
+      "progresso": 10
+    },
+    {
+      "titulo": "Automação Fiscal de Notas",
+      "cliente": "Rede Varejo Sul",
+      "status": "Concluído",
+      "progresso": 100
+    }
+  ]
+  ''';
 
-  Widget _construirTelaAtual(BuildContext context) {
+  // Função que transforma o Texto JSON na Lista de Objetos
+  List<Projeto> _carregarProjetos() {
+    List<dynamic> lista = jsonDecode(jsonDeExemplo);
+    return lista.map((item) => Projeto.fromJson(item)).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final projetos = _carregarProjetos();
+
     final telaAtual = context.watch<ProjetoController>().telaAtual;
-
     switch (telaAtual) {
-      case TelaProjeto.lista:
-        return _construirLista(context);
-
       case TelaProjeto.novoProjeto:
         return DetalheProjetoView(
           onVoltar: () {
             context.read<ProjetoController>().mudarTela(TelaProjeto.lista);
           },
         );
-      case TelaProjeto.editarProjeto:
-        //Para futura Adição da tela de editar projetos.
-        return const Center(
-          child: Text('Tela de edição para futura atualização'),
-        );
-
       case TelaProjeto.visualizarProjeto:
         return DetalheProjetoView(
           onVoltar: () {
             context.read<ProjetoController>().mudarTela(TelaProjeto.lista);
           },
         );
+      case TelaProjeto.lista:
+      default:
+
+        break;
     }
-  }
 
-  Widget _construirLista(BuildContext context) {
-    final List<Map<String, dynamic>> projetosSimulados = [
-      {
-        "nome": "Implantação de PDV",
-        "cliente": "Mega São Luís",
-        "status": "Em Andamento",
-        "progresso": 0.65,
-        "cor": Colors.blueAccent,
-      },
-      {
-        "nome": "Auditoria e Migração Firebird",
-        "cliente": "Supermercado Central",
-        "status": "Pendente",
-        "progresso": 0.10,
-        "cor": Colors.orangeAccent,
-      },
-      {
-        "nome": "Automação Fiscal de Notas",
-        "cliente": "Rede Varejo Sul",
-        "status": "Concluído",
-        "progresso": 1.0,
-        "cor": Colors.greenAccent,
-      },
-    ];
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: projetosSimulados.isEmpty
-              ? const Center(
-                  child: Text(
-                    'Nenhum projeto encontrado.\nClique no botão abaixo para criar um novo!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                )
-              : GridView.builder(
-                  padding: EdgeInsets.only(
-                    top: 24,
-                    left: 24,
-                    right: 24,
-                    bottom: 100,
-                  ),
+    return Scaffold(
+      backgroundColor: const Color(0xFF000D15),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(32.0),
 
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 350,
-                    mainAxisExtent: 180,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  itemCount: projetosSimulados.length,
-                  itemBuilder: (context, index) {
-                    final projeto = projetosSimulados[index];
-                    return _construirCard(context, projeto);
-                  },
-                ),
-        ),
-
-        Positioned(
-          bottom: 32.0,
-          left: 32.0,
-          child: BotaoPadrao(
-            label: 'SALVAR PROJETO',
-           onPressed: () { 
-            context.read<ProjetoController>().mudarTela(
-            TelaProjeto.novoProjeto);
-            },
-           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _construirCard(BuildContext context, Map<String, dynamic> projeto) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12)),
-      color: Color(0xFF001B29),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          context.read<ProjetoController>().mudarTela(TelaProjeto.visualizarProjeto);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // NOME DO PROJETO E ÍCONE
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      projeto['nome'],
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Icon(Icons.folder_special, color: projeto['cor']),
-                ],
+              child: Wrap(
+                spacing: 24.0,
+                runSpacing: 24.0,
+                children: projetos.map((projetoAtual) {
+                  return _construirCardProjeto(context, projetoAtual);
+                }).toList(),
               ),
-              const SizedBox(height: 8),
-
-              // NOME DO CLIENTE
-              Text(
-                'Cliente: ${projeto['cliente']}',
-                style: TextStyle(fontSize: 14, color: Colors.grey[400]),
-              ),
-              const Spacer(),
-
-              // STATUS E BARRA DE PROGRESSO
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    projeto['status'],
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: projeto['cor'],
-                    ),
-                  ),
-                  Text(
-                    '${(projeto['progresso'] * 100).toInt()}%',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              LinearProgressIndicator(
-                value: projeto['progresso'],
-                backgroundColor: Colors.grey[300],
-                valueColor: AlwaysStoppedAnimation<Color>(projeto['cor']),
-                minHeight: 6,
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ],
+            ),
           ),
-        ),
+
+          Positioned(
+            bottom: 32.0,
+            left: 32.0,
+            child: Container(
+              height: 56,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFF14004), Color(0xFFC9350F)],
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                onPressed: () {
+                  //lógica para controler futuro
+                  print('Novo Projeto clicado!');
+                },
+                icon: const Icon(Icons.add, color: Colors.white),
+                label: const Text(
+                  'Novo Projeto',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF001621),
-      child: _construirTelaAtual(context),
+  // ==================================================
+  //                  WIDGET DO CARD
+  // ==================================================
+  Widget _construirCardProjeto(BuildContext context, Projeto projeto) {
+    Color corDestaque;
+    IconData iconeStatus;
+
+    if (projeto.status == 'Concluído') {
+      corDestaque = const Color(0xFF2ECC71);
+      iconeStatus = Icons.check_circle;
+    } else if (projeto.status == 'Pendente') {
+      corDestaque = const Color(0xFFF39C12);
+      iconeStatus = Icons.folder_special;
+    } else {
+      corDestaque = const Color(0xFF3498DB);
+      iconeStatus = Icons.folder;
+    }
+
+    return GestureDetector(
+      onTap: () {
+        context.read<ProjetoController>().mudarTela(
+          TelaProjeto.visualizarProjeto,
+        );
+        print('Clicou no projeto: ${projeto.cliente}');
+      },
+      child: Container(
+        width: 300,
+        height: 200,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: const Color(0xFF001B29),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // TÍTULO E ÍCONE
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    projeto.cliente,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Icon(iconeStatus, color: corDestaque, size: 24),
+              ],
+            ),
+            const SizedBox(height: 8),
+
+            // CLIENTE
+            Text(
+              'Cliente: ${projeto.titulo}',
+              style: TextStyle(color: Colors.grey[400], fontSize: 14),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+            const SizedBox(height: 32),
+            Spacer(),
+            // TEXTOS DA BARRA DE PROGRESSO
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  projeto.status,
+                  style: TextStyle(
+                    color: corDestaque,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '${projeto.progresso}%',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+
+            // BARRA DE PROGRESSO
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: projeto.progresso / 100,
+                backgroundColor: Colors.white.withOpacity(0.05),
+                valueColor: AlwaysStoppedAnimation<Color>(corDestaque),
+                minHeight: 6,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
