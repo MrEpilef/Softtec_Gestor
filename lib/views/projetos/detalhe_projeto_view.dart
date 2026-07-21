@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class DetalheProjetoView extends StatelessWidget {
   final VoidCallback onVoltar;
 
-  const DetalheProjetoView({Key? key, required this.onVoltar})
-    : super(key: key);
+  const DetalheProjetoView({super.key, required this.onVoltar});
 
    @override
     Widget build(BuildContext context) {

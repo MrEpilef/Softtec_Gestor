@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestorsofttec/controllers/projeto_controller.dart';
+import 'package:gestorsofttec/views/projetos/novo_projeto_view.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:gestorsofttec/models/projeto_model.dart';
@@ -26,6 +27,18 @@ class ProjetosView extends StatelessWidget {
       "cliente": "Rede Varejo Sul",
       "status": "Concluído",
       "progresso": 100
+    },
+    {
+      "titulo": "Implantação e treinamento rede varejo sul",
+      "cliente": "Rede Varejo Sul",
+      "status": "Pendente",
+      "progresso": 98
+    },
+    {
+      "titulo": "Treinamento Quallity",
+      "cliente": "Supermercado Quallity",
+      "status": "Pendente",
+      "progresso": 98
     }
   ]
   ''';
@@ -43,7 +56,7 @@ class ProjetosView extends StatelessWidget {
     final telaAtual = context.watch<ProjetoController>().telaAtual;
     switch (telaAtual) {
       case TelaProjeto.novoProjeto:
-        return DetalheProjetoView(
+        return NovoProjetoView(
           onVoltar: () {
             context.read<ProjetoController>().mudarTela(TelaProjeto.lista);
           },
@@ -101,6 +114,9 @@ class ProjetosView extends StatelessWidget {
                 onPressed: () {
                   //lógica para controler futuro
                   print('Novo Projeto clicado!');
+                  context.read<ProjetoController>().mudarTela(
+                    TelaProjeto.novoProjeto,
+                  );
                 },
                 icon: const Icon(Icons.add, color: Colors.white),
                 label: const Text(
@@ -144,7 +160,7 @@ class ProjetosView extends StatelessWidget {
         print('Clicou no projeto: ${projeto.cliente}');
       },
       child: Container(
-        width: 300,
+        width: 280,
         height: 200,
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
@@ -180,7 +196,7 @@ class ProjetosView extends StatelessWidget {
 
             // CLIENTE
             Text(
-              'Cliente: ${projeto.titulo}',
+              'Projeto: ${projeto.titulo}',
               style: TextStyle(color: Colors.grey[400], fontSize: 14),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
