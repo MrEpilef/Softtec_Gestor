@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_title_bar.dart';
 import 'dashboard_view.dart';
 import 'cadastro/cadastro_view.dart';
-import 'projetos/projetos_view.dart';
+import 'projetos/grade_projetos_view.dart';
 import 'relatorios_view.dart';
 import 'configuracao_view.dart';
 
@@ -21,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> _telas = [
     DashboardView(),
     CadastroView(),
-    ProjetosView(),
+    GradeProjetosView(),
     RelatoriosView(),
     ConfiguracaoView(),
   ];

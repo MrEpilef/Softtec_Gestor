@@ -1,40 +1,47 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
+import 'dart:convert';
 import 'package:gestorsofttec/controllers/projeto_controller.dart';
 import 'package:gestorsofttec/views/projetos/novo_projeto_view.dart';
-import 'dart:convert';
+import 'package:gestorsofttec/views/projetos/projeto_view.dart';
 import 'package:provider/provider.dart';
 import 'package:gestorsofttec/models/projeto_model.dart';
 import 'detalhe_projeto_view.dart';
 
-class ProjetosView extends StatelessWidget {
-  const ProjetosView({super.key});
+class GradeProjetosView extends StatelessWidget {
+  const GradeProjetosView({super.key});
   final String jsonDeExemplo = '''
   [
     {
+      "codigoCliente": "1",
       "titulo": "Implantação de PDV",
       "cliente": "Mega São Luís",
       "status": "Em Andamento",
       "progresso": 65
     },
     {
+      "codigoCliente": "2",
       "titulo": "Auditoria e Migração Firebird",
       "cliente": "Supermercado Central",
       "status": "Pendente",
       "progresso": 10
     },
     {
+      "codigoCliente": "3",
       "titulo": "Automação Fiscal de Notas",
       "cliente": "Rede Varejo Sul",
       "status": "Concluído",
       "progresso": 100
     },
     {
+      "codigoCliente": "4",
       "titulo": "Implantação e treinamento rede varejo sul",
       "cliente": "Rede Varejo Sul",
       "status": "Pendente",
-      "progresso": 98
+      "progresso": 80
     },
     {
+      "codigoCliente": "5",
       "titulo": "Treinamento Quallity",
       "cliente": "Supermercado Quallity",
       "status": "Pendente",
@@ -61,15 +68,22 @@ class ProjetosView extends StatelessWidget {
             context.read<ProjetoController>().mudarTela(TelaProjeto.lista);
           },
         );
-      case TelaProjeto.visualizarProjeto:
+      case TelaProjeto.detalheProjeto:
         return DetalheProjetoView(
           onVoltar: () {
             context.read<ProjetoController>().mudarTela(TelaProjeto.lista);
           },
         );
+      case TelaProjeto.visualizarProjeto:
+        return ProjetoView(
+          onVoltar: () {
+            context.read<ProjetoController>().mudarTela(
+              TelaProjeto.detalheProjeto,
+            );
+          },
+        );
       case TelaProjeto.lista:
       default:
-
         break;
     }
 
@@ -154,91 +168,99 @@ class ProjetosView extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.read<ProjetoController>().mudarTela(
-          TelaProjeto.visualizarProjeto,
-        );
-        print('Clicou no projeto: ${projeto.cliente}');
+        context.read<ProjetoController>().setProjetoAtivo(projeto);
+        context.read<ProjetoController>().mudarTela(TelaProjeto.detalheProjeto);
+        print('Navegando para a visualização do projeto ${projeto.cliente}');
       },
-      child: Container(
-        width: 280,
-        height: 200,
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: const Color(0xFF001B29),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // TÍTULO E ÍCONE
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    projeto.cliente,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Icon(iconeStatus, color: corDestaque, size: 24),
-              ],
-            ),
-            const SizedBox(height: 8),
-
-            // CLIENTE
-            Text(
-              'Projeto: ${projeto.titulo}',
-              style: TextStyle(color: Colors.grey[400], fontSize: 14),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-
-            const SizedBox(height: 32),
-            Spacer(),
-            // TEXTOS DA BARRA DE PROGRESSO
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  projeto.status,
-                  style: TextStyle(
-                    color: corDestaque,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  '${projeto.progresso}%',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-
-            // BARRA DE PROGRESSO
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: LinearProgressIndicator(
-                value: projeto.progresso / 100,
-                backgroundColor: Colors.white.withOpacity(0.05),
-                valueColor: AlwaysStoppedAnimation<Color>(corDestaque),
-                minHeight: 6,
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(16),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            width: 280,
+            height: 200,
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: const Color(0xFF001B29).withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.15),
+                width: 1,
               ),
             ),
-          ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // TÍTULO E ÍCONE
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        projeto.cliente,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Icon(iconeStatus, color: corDestaque, size: 24),
+                  ],
+                ),
+                const SizedBox(height: 8),
+
+                // CLIENTE
+                Text(
+                  'Projeto: ${projeto.titulo}',
+                  style: TextStyle(color: Colors.grey[400], fontSize: 14),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                const SizedBox(height: 32),
+                Spacer(),
+                // TEXTOS DA BARRA DE PROGRESSO
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      projeto.status,
+                      style: TextStyle(
+                        color: corDestaque,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '${projeto.progresso}%',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+
+                // BARRA DE PROGRESSO
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: LinearProgressIndicator(
+                    value: projeto.progresso / 100,
+                    backgroundColor: Colors.white.withValues(alpha: 0.05),
+                    valueColor: AlwaysStoppedAnimation<Color>(corDestaque),
+                    minHeight: 6,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

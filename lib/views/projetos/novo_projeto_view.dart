@@ -1,62 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:gestorsofttec/widgets/botao_padrao.dart';
+import 'package:gestorsofttec/widgets/campo_texto_padrao.dart';
 
-class NovoProjetoView extends StatelessWidget{
-
+class NovoProjetoView extends StatelessWidget {
   final VoidCallback onVoltar;
 
-  const NovoProjetoView ({super.key, required this.onVoltar});
-  
-    @override
-    Widget build(BuildContext context) {
+  const NovoProjetoView({super.key, required this.onVoltar});
 
-      return Padding(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF000D15),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
-        child: Container(
-          clipBehavior: Clip.antiAlias, 
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFFF14004), 
-                Color(0xFFC9350F), 
-              ],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.4), 
-                blurRadius: 10, 
-                offset: const Offset(0, 4), 
-                ),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
+              onPressed: onVoltar,
+              tooltip: 'Voltar para a lista',
+              padding: EdgeInsets.zero,
+              alignment: Alignment.centerLeft,
             ),
 
-            child: Stack(
+            const SizedBox(width: 12),
+
+            const Text(
+              'Cadastro de projeto',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 40),
+
+            Row(
               children: [
-                Positioned(
-                  top: 20,
-                  left: 20,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
-                    onPressed: onVoltar,
-                    tooltip: 'Voltar para a lista',
-                  ),
+                Expanded(
+                  flex: 1,
+                  child: CampoTextoPadrao(label: 'Cliente', hint: 'Cliente'),
                 ),
-                Center(
-                  child: Text(
-                    "Tela novo projeto",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                const SizedBox(width: 8),
+                Expanded(
+                  flex: 1,
+                  child: CampoTextoPadrao(
+                    label: 'Título',
+                    hint: 'Título do projeto',
                   ),
                 ),
               ],
             ),
-          )
-          
-      );
-    }
+            Row(),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: SizedBox(
+          height: 56,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: BotaoPadrao(
+            label: 'Salvar Projeto',
+            onPressed: () {
+              print('Salvo projeto');
+            },
+          ),
+          ),
+        ),
+      ),
+    );
+  }
 }
