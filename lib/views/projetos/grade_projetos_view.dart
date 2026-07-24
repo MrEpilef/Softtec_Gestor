@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'dart:convert';
 import 'package:gestorsofttec/controllers/projeto_controller.dart';
 import 'package:gestorsofttec/views/projetos/novo_projeto_view.dart';
-import 'package:gestorsofttec/views/projetos/projeto_view.dart';
+import 'package:gestorsofttec/views/projetos/projeto/projeto_view.dart';
+
 import 'package:provider/provider.dart';
 import 'package:gestorsofttec/models/projeto_model.dart';
 import 'detalhe_projeto_view.dart';
@@ -89,61 +90,70 @@ class GradeProjetosView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFF000D15),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(32.0),
-
-              child: Wrap(
-                spacing: 24.0,
-                runSpacing: 24.0,
-                children: projetos.map((projetoAtual) {
-                  return _construirCardProjeto(context, projetoAtual);
-                }).toList(),
-              ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/fundo.png"),
+            fit: BoxFit.cover,
             ),
-          ),
-
-          Positioned(
-            bottom: 32.0,
-            left: 32.0,
-            child: Container(
-              height: 56,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFF14004), Color(0xFFC9350F)],
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                onPressed: () {
-                  //lógica para controler futuro
-                  print('Novo Projeto clicado!');
-                  context.read<ProjetoController>().mudarTela(
-                    TelaProjeto.novoProjeto,
-                  );
-                },
-                icon: const Icon(Icons.add, color: Colors.white),
-                label: const Text(
-                  'Novo Projeto',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+            
+        ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(32.0),
+        
+                child: Wrap(
+                  spacing: 24.0,
+                  runSpacing: 24.0,
+                  children: projetos.map((projetoAtual) {
+                    return _construirCardProjeto(context, projetoAtual);
+                  }).toList(),
                 ),
               ),
             ),
-          ),
-        ],
+        
+            Positioned(
+              bottom: 32.0,
+              left: 32.0,
+              child: Container(
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFF14004), Color(0xFFC9350F)],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  onPressed: () {
+                    //lógica para controler futuro
+                    print('Novo Projeto clicado!');
+                    context.read<ProjetoController>().mudarTela(
+                      TelaProjeto.novoProjeto,
+                    );
+                  },
+                  icon: const Icon(Icons.add, color: Colors.white),
+                  label: const Text(
+                    'Novo Projeto',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -181,13 +191,15 @@ class GradeProjetosView extends StatelessWidget {
             height: 200,
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: const Color(0xFF001B29).withValues(alpha: 0.4),
+              color: const Color(0xFF001B29).withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.15),
                 width: 1,
               ),
             ),
+
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-//import 'package:gestorsofttec/widgets/campo_texto_padrao.dart';
-//import 'package:gestorsofttec/controllers/projeto_controller.dart';
-//import 'package:gestorsofttec/models/projeto_model.dart';
-//import 'package:gestorsofttec/widgets/botao_padrao.dart';
-//import 'package:provider/provider.dart';
+import 'package:gestorsofttec/views/projetos/projeto/projeto_diario_view.dart';
+import 'package:gestorsofttec/views/projetos/projeto/projeto_financeiro_view.dart';
+import 'package:gestorsofttec/views/projetos/projeto/projeto_pendencias_view.dart';
 
 class ProjetoView extends StatelessWidget {
   final VoidCallback onVoltar;
@@ -14,8 +12,7 @@ class ProjetoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFF000D15),
-      //color: const Color(0xFF000D15),
-
+      
 
       child: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -34,7 +31,11 @@ class ProjetoView extends StatelessWidget {
                 width: 1.0,
               ),
             ),
+
+
             padding: const EdgeInsets.all(12.0),
+
+
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -58,9 +59,9 @@ class ProjetoView extends StatelessWidget {
                           labelColor: Color(0xFFFF4103),
                           unselectedLabelColor: Colors.white60,
                             tabs: [
-                              Tab(icon: Icon(Icons.store), text: 'Financeiro'),
-                              Tab(icon: Icon(Icons.badge), text: 'Diário'),
-                              Tab(icon: Icon(Icons.badge), text: 'Pendências'),
+                              Tab(icon: Icon(Icons.attach_money), text: 'Financeiro'),
+                              Tab(icon: Icon(Icons.calendar_month_outlined), text: 'Diário'),
+                              Tab(icon: Icon(Icons.pending_actions), text: 'Pendências'),
                             ],
                           ),
                       ),
@@ -71,9 +72,10 @@ class ProjetoView extends StatelessWidget {
                   Expanded(
                     child: TabBarView(
                       children: [
-                        //FormularioClientes(),
-                        //FormularioAnalistas(),
-                        //FormularioServicos(),
+                        ProjetoFinanceiroView(),
+                        ProjetoDiarioView(),
+                        ProjetoPendenciasView(),
+                        
                       ],
                     ),
                   ),
